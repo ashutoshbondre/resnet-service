@@ -1,0 +1,19 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --region us-east-1)
+  build:
+    commands:
+      - echo Build started on `date`
+      - echo Building the Docker image...          
+      - docker build -t resnet-service .
+      - docker tag resnet-service:latest 322703700119.dkr.ecr.us-east-1.amazonaws.com/resnet-service:latest 
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 322703700119.dkr.ecr.us-east-1.amazonaws.com/resnet-service:latest
+
