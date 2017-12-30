@@ -25,5 +25,3 @@ phases:
       - echo files before creating imagedefinitions = `ls -1`
       - echo '[{"name":"resnet-service","imageUri":"'$REPOSITORY_URI:$IMAGE_TAG'"}]' > imagedefinitions.json
       - echo files after creating imagedefinitions = `ls -1`
-artifacts:
-    files: '**/*'
