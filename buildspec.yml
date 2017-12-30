@@ -13,6 +13,7 @@ phases:
       - docker tag resnet-service:latest 322703700119.dkr.ecr.us-east-1.amazonaws.com/resnet-service:latest 
   post_build:
     commands:
+      - printf '[{"name":"resnet-service","imageUri":"322703700119.dkr.ecr.us-east-1.amazonaws.com/resnet-service:latest"}]' > imagedefinitions.json
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push 322703700119.dkr.ecr.us-east-1.amazonaws.com/resnet-service:latest
