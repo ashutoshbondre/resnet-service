@@ -4,7 +4,6 @@ phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
-      - aws --version
       - $(aws ecr get-login --no-include-email --region $AWS_DEFAULT_REGION)
       - REPOSITORY_URI=322703700119.dkr.ecr.us-east-1.amazonaws.com/resnet-service
       - IMAGE_TAG=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
@@ -21,10 +20,7 @@ phases:
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      - echo '[{"name":"resnet-service","imageUri":"'$REPOSITORY_URI:$IMAGE_TAG'"}]'
-      - echo files before creating imagedefinitions = `ls -1tra`
       - echo '[{"name":"resnet-service","imageUri":"'$REPOSITORY_URI:$IMAGE_TAG'"}]' > imagedefinitions.json
-      - echo files after creating imagedefinitions = `ls -1tra`
 artifacts:
   files:
     - imagedefinitions.json
